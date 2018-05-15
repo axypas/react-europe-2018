@@ -70,6 +70,7 @@ export default class Stepper extends Component {
   static Next = StepperNext;
   static Previous = StepperPrevious;
   static ActiveStep = ActiveStep;
+
   state = {
     // Assume that the first step is always active at first.
     activeStepIndex: 0
@@ -85,6 +86,7 @@ export default class Stepper extends Component {
         activeStepIndex: state.activeStepIndex + 1
       };
     });
+    this.props.onChange(this.state.activeStepIndex)
   };
 
   stepBack = () => {
@@ -101,7 +103,7 @@ export default class Stepper extends Component {
 
   getContext() {
     const { steps } = this.props;
-    const { activeStepIndex } = this.state;
+    const { stepIndex: activeStepIndex } = this.props;
     const hasPrevious = activeStepIndex > 0;
     const hasNext = activeStepIndex < steps.length - 1;
     return {

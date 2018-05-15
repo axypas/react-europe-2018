@@ -43,8 +43,13 @@ const steps = [
 ];
 
 class App extends Component {
+  static Active = ''
   render() {
-    return <Stepper steps={steps} />;
+    return <Stepper steps={steps}>
+      <Stepper.Status />
+      <Stepper.ActiveStep />
+      <Stepper.Control />
+    </Stepper>
   }
 }
 
