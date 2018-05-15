@@ -81,24 +81,15 @@ export default class Stepper extends Component {
   };
 
   stepForward = () => {
-    this.setState(state => {
-      return {
-        activeStepIndex: state.activeStepIndex + 1
-      };
-    });
-    this.props.onChange(this.state.activeStepIndex)
+    this.props.onChange(this.props.stepIndex + 1)
   };
 
   stepBack = () => {
-    this.setState(state => {
-      return {
-        activeStepIndex: state.activeStepIndex - 1
-      };
-    });
+    this.props.onChange(this.props.stepIndex - 1)
   };
 
   goToIndex = index => {
-    this.setState({ activeStepIndex: index });
+    this.props.onChange(index)
   };
 
   getContext() {

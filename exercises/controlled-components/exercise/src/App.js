@@ -49,11 +49,13 @@ const steps = [
 class App extends React.Component {
   state = {
     stepIndex: 0,
-
   }
 
   onStepChange = (stepIndex) => {
     console.log(stepIndex)
+    this.setState({
+      stepIndex,
+    })
   }
 
   render() {
