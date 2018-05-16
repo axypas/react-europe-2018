@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+// import "./App.css";
 import PortalApp from "./portal-app";
 
 class App extends Component {

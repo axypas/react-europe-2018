@@ -9,6 +9,8 @@ import React, { Component } from 'react';
 
 // copywrite lib, react-music
 
+import Header from './Header'
+
 class App extends Component {
   render() {
     return <p>Context</p>;

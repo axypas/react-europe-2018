@@ -4,8 +4,21 @@ import ReactDOM from "react-dom";
 import "./portal-app.css";
 
 export class RegularModal extends Component {
+  constructor() {
+    super()
+    this.portalElement = document.createElement('div')
+  }
+
+  componentDidMount() {
+    document.body.appendChild(this.portalElement)
+  }
+
+  componentDidUnmount() {
+    document.body.removeChild(this.portalElement)
+  }
+
   render() {
-    return <div className="regularModal">Hi I'm a regular modal!!</div>;
+    return ReactDOM.createPortal(<div className="regularModal">Hi I'm a regular modal!!</div>, this.portalElement)
   }
 }
 
@@ -29,7 +42,7 @@ export class PortalApp extends Component {
       <div className="pageWrapper">
         <div className={`containerDiv lightTheme`}>
           <h1>Portals!!!!</h1>
-          <div className="settingsButtonWrapper">
+          <div className="settingsButtonWrapper" ref={el => { this.buttonWrapper = el }}>
             <button className="settingsButton" onClick={this.toggleModal}>
               settings
             </button>
@@ -47,8 +60,8 @@ export class PortalApp extends Component {
           <p>Here is some more content about portals</p>
           <p>Here is some more content about portals</p>
           <p>Here is some more content about portals</p>
-        </div>
-      </div>
+        </div >
+      </div >
     );
   }
 }
