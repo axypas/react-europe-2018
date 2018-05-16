@@ -30,10 +30,10 @@
  *   Fallback,
  *   (error, stack) => {...}
  * )
- */ 
+ */
 
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // Where our message data comes from.
 import MessageDataSource from './MessageDataSource';
 // Chat components!
@@ -41,6 +41,7 @@ import ChatList from './ChatList';
 import ChatInput from './ChatInput';
 import ChatFilterNavbar from './ChatFilterNavbar';
 import './App.css';
+import ErrorBoundary from "./ErrorBoundary"
 
 export default class App extends Component {
   state = {
@@ -52,7 +53,7 @@ export default class App extends Component {
   componentDidMount() {
     this._messageRequest = MessageDataSource.getData().then(
       messages => {
-        this.setState({messages});
+        this.setState({ messages });
       },
     );
     this._unsubscribe = MessageDataSource.subscribe(
@@ -72,18 +73,18 @@ export default class App extends Component {
   };
 
   onMessageFilterChange = messageFilter => {
-    this.setState({messageFilter});
+    this.setState({ messageFilter });
   };
 
   onNewRemoteMessage = message => {
-    const {messages} = this.state;
+    const { messages } = this.state;
     this.setState({
       messages: [...messages, message],
     });
   };
 
   onNewLocalMessage = () => {
-    const {pendingMessage} = this.state;
+    const { pendingMessage } = this.state;
     const message = {
       author: 'Me',
       message: pendingMessage,
@@ -107,23 +108,28 @@ export default class App extends Component {
     } = this.state;
 
     return (
-      <div className="App">
-        <ChatFilterNavbar
-          onFilterChange={this.onMessageFilterChange}
-        />
-        <div className="container">
-          <ChatList
-            onScrollOffsetChange={this.onScrollOffsetChange}
-            filter={messageFilter}
-            messages={messages}
+      <ErrorBoundary
+        onError={(error, stack) => { console.log(error) }}
+        fallback={<div >Fail</div>}
+      >
+        <div className="App">
+          <ChatFilterNavbar
+            onFilterChange={this.onMessageFilterChange}
           />
-          <ChatInput
-            onSubmit={this.onNewLocalMessage}
-            onChange={this.onChatInputChange}
-            value={pendingMessage}
-          />
+          <div className="container">
+            <ChatList
+              onScrollOffsetChange={this.onScrollOffsetChange}
+              filter={messageFilter}
+              messages={messages}
+            />
+            <ChatInput
+              onSubmit={this.onNewLocalMessage}
+              onChange={this.onChatInputChange}
+              value={pendingMessage}
+            />
+          </div>
         </div>
-      </div>
+      </ErrorBoundary >
     );
   }
 }

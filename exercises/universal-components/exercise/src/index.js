@@ -2,19 +2,35 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 
+import './index.css'
+
 class App extends React.Component {
   render() {
     return (
-      <View style={styles.box}>
-        <Text style={styles.text}>Hello, world!</Text>
-      </View>
+      <View style={styles.container}>
+        <View style={styles.box} >
+        </View>
+        <View style={styles.box} >
+        </View>
+        <View style={[styles.box, { backgroundColor: 'blue' }]} >
+        </View>
+      </View >
     );
   }
 }
 
 const styles = StyleSheet.create({
-  box: { padding: 10 },
-  text: { fontWeight: 'bold' },
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  box: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'red',
+  }
 });
 
 AppRegistry.registerComponent('App', () => App);

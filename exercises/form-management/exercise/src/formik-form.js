@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 
 import "./formik-form.css";
 
@@ -34,7 +34,15 @@ export default class FormikForm extends Component {
     return (
       <div className="pageWrapper">
         <div className="formWrapper">
-          <form className="form" onSubmit={this.handleSubmit}>
+          <Formik
+            render={({ values }) => (
+              <Form>
+                <label htmlFor="name">What's your name?</label>
+                <Field type="text" id="name" placeholder="Name" />
+              </Form>
+            )}
+          />
+          {/* <form className="form" onSubmit={this.handleSubmit}>
             <div>
               <label htmlFor="name">What's your name?</label>
               <input type="text" id="name" name="name" />
@@ -84,7 +92,7 @@ export default class FormikForm extends Component {
             <button className="submitButton" type="submit">
               Submit Form
             </button>
-          </form>
+          </form> */}
         </div>
         <Content />
       </div>
